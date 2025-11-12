@@ -61,3 +61,722 @@
     *{box-sizing:border-box;font-family:"Poppins",sans-serif;margin:0;padding:0}
     body{
       background:var(--bg);
+      color:var(--text);
+      transition:background 0.3s, color 0.3s;
+      padding:28px 16px;
+      line-height: 1.5;
+    }
+
+    main{
+        max-width:1100px;
+        margin:auto;
+        display:flex;
+        flex-direction:column;
+        gap:34px;
+    }
+    section{
+        background:var(--card);
+        border-radius:var(--radius);
+        padding:20px;
+        box-shadow:0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    /* === HEADER DAN RESET UTAMA === */
+    .section-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .section-header h2{
+      color:var(--text); 
+      margin:0;
+      font-weight:600; 
+      font-size:1.2rem; 
+    }
+    
+    .btn-header-reset {
+        background: var(--btn-reset-bg);
+        color: var(--btn-reset-fg);
+        padding: 6px 10px; 
+        font-size: 11px; 
+        border-radius: 999px; 
+        font-weight: 500;
+        height: 30px; 
+        flex: 0 0 auto;
+        border: none;
+        cursor: pointer;
+        transition: background-color .2s ease, transform .05s ease;
+    }
+    .btn-header-reset:hover { filter: brightness(1.1); }
+    .btn-header-reset:active { transform: translateY(1px); }
+
+    /* Tombol Theme Toggle */
+    #theme-toggle {
+        background: var(--btn-select-bg);
+        color: var(--btn-select-fg);
+    }
+    #theme-toggle .icon-sun,
+    body[data-theme="dark"] #theme-toggle .icon-moon { display: none; }
+    body[data-theme="dark"] #theme-toggle .icon-sun { display: inline-block; }
+
+
+    /* === INPUT DAN LABEL UMUM === */
+    .field-group { margin-bottom: 15px; }
+    label{
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--subtext);
+        margin-bottom: 6px;
+    }
+    .label-with-count{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end; /* Posisikan count sejajar dengan baseline label */
+        margin-bottom: 6px;
+    }
+    .keyword-count{
+        font-size: 0.8rem;
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+    input, textarea{
+        background: var(--input);
+        border: 1px solid var(--border);
+        color: var(--text);
+        border-radius: var(--radius); 
+        padding: 8px; 
+        font-size: 0.9rem; 
+        line-height: 1.4;
+        width: 100%;
+        transition: border-color 0.2s;
+        resize: none;
+    }
+    input:focus, textarea:focus { border-color: var(--accent); outline: none; }
+    input { height: 38px; } 
+    textarea { min-height: 100px; background: var(--input); border: 1px solid var(--border); } 
+    /* Aturan khusus untuk membuat textarea Keyword Awal menjadi satu baris */
+    #keywordAwal {
+        height: auto; /* Biarkan tinggi menyesuaikan konten */
+        min-height: 100px; /* Kembali ke min-height default textarea */
+        white-space: normal; /* Memungkinkan teks turun baris */
+        overflow-x: hidden; /* Sembunyikan scrollbar horizontal */
+    }
+    /* === TOMBOL UMUM (Soft Pill, Ringkas) === */
+    .button-row{display:flex;flex-wrap:wrap;gap:8px; margin-top:8px;} 
+    button{
+      /* Properti umum dari kode Anda */
+      font-weight:500; 
+      border:none; border-radius:999px; cursor:pointer;
+      transition:background-color .2s ease, transform .05s ease;
+      display:flex; align-items:center; justify-content:center; gap:5px; 
+      outline: none;
+
+      /* Properti khusus agar ringkas */
+      padding: 6px 12px; 
+      font-size: 12px; 
+      height: 35px; 
+    }
+    
+    button:hover{ filter: brightness(1.05); } 
+    button:active{ transform: translateY(1px); } /* Efek tekan */
+    
+    /* Tombol 4 Sejajar */
+    .button-4-col button {
+        flex: 1 1 calc(25% - 6px); /* 4 tombol dengan gap 8px (25% - 3/4 dari gap) */
+        width: 16px; 
+        height: 16px; 
+        stroke-width: 2.2; 
+        color: currentColor; 
+    } 
+
+    /* Warna Tombol (Menggunakan skema Soft/Subtle) */
+    .btn-paste-style   { background:var(--btn-paste-bg);  color:var(--btn-paste-fg);}
+    .btn-generate-style{ background:var(--btn-gen-bg);    color:var(--btn-gen-fg);}
+    .btn-copy-style    { background:var(--btn-copy-bg);   color:var(--btn-copy-fg);}
+    .btn-reset-style   { background:var(--btn-reset-bg);  color:var(--btn-reset-fg);}
+    .btn-delete-field  { background:var(--btn-reset-bg);  color:var(--btn-reset-fg);}
+
+    /* Tombol dengan warna kustom */
+    .btn-paste-judul { background: var(--btn-paste-judul-bg); color: var(--btn-paste-judul-fg); font-weight: 600; }
+    .btn-gen-prompt  { background: var(--btn-gen-prompt-bg);  color: var(--btn-gen-prompt-fg); }
+    
+    /* === KEYWORD ORGANIZER STYLES === */
+    .input-area{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0}
+    
+    .keyword-field-container {
+        background: var(--card); 
+        padding: 10px;
+        border-radius: var(--radius);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* Menyesuaikan jarak antara label dan tombol paste/del yang baru di atas */
+    .keyword-field-container .keyword-top-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px; 
+    }
+    .keyword-field-container .keyword-top-controls label {
+        margin-bottom: 0;
+        flex: 1;
+    }
+    .keyword-field-container .keyword-top-controls .button-row {
+        margin-top: 0;
+        gap: 4px; 
+    }
+    .keyword-field-container .keyword-top-controls .button-row button {
+        height: 30px; 
+        font-size: 11px;
+        padding: 5px 8px; 
+        flex: 0 0 auto; 
+    }
+    .keyword-field-container .keyword-top-controls .keyword-button-pair {
+        display: flex;
+        gap: 4px;
+    }
+    .keyword-field-container .keyword-top-controls .keyword-button-pair button {
+        flex: 1 1 0%;
+    }
+    /* Mengurangi ukuran ikon di tombol kecil */
+    .keyword-field-container .keyword-top-controls .button-row button svg { width: 14px; height: 14px; }
+
+    /* Menjadikan textarea keyword menjadi satu baris */
+    .keyword-count-badge {
+        background: var(--input);
+        color: var(--subtext);
+        padding: 3px 8px;
+        font-size: 11px;
+        border-radius: 999px;
+        font-weight: 600;
+        border: 1px solid var(--border);
+    }
+    .all-keywords-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .prompt-keyword-stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 10px;
+        margin-top: 15px;
+        padding: 10px;
+        background: var(--input);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+    }
+    .divider {
+        border-top: 1px solid var(--border);
+        margin: 20px 0 15px 0;
+    }
+
+    .keyword-field-container textarea {
+        height: 38px; /* Menyamakan tinggi dengan input field lain */
+        min-height: 38px;
+        white-space: nowrap; /* Mencegah teks turun baris */
+    }
+
+    /* Container baru untuk 3 pasang tombol Paste/Del */
+    .keyword-controls-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 12px; /* Jarak ke input area di bawahnya */
+    }
+    .keyword-controls-grid .keyword-button-pair {
+        display: flex;
+        gap: 4px;
+    }
+    .keyword-controls-grid .keyword-button-pair button {
+        flex: 1 1 0; /* Memastikan tombol membagi ruang secara merata */
+    }
+    /* Grid untuk 4 tombol paste */
+    .paste-controls-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+    /* Warna Tombol Keyword Organizer */
+    .btn-organize-style { background: var(--btn-organize-bg); color: var(--btn-organize-fg); }
+    .btn-select-style   { background: var(--btn-gen-bg);   color: var(--btn-gen-fg); } 
+    .btn-delete-style   { background: var(--btn-reset-bg);    color: var(--btn-reset-fg); }    
+    
+    /* HASIL KEYWORD (3 KOLOM) */
+    .keywords-result{
+      margin-top:8px;
+      padding:6px 8px; 
+      border-radius:var(--radius);background:var(--input);border:1px solid var(--border);
+      min-height:40px;
+      
+      display: flow-root; 
+      column-count: 3;
+      column-gap: 10px;
+      padding: 10px; 
+    }
+    
+    .keywords-result label{
+        font-size:0.9rem;
+        color:var(--text);
+        cursor:pointer;
+        display: block; 
+        margin-bottom: 4px; 
+        break-inside: avoid; 
+    }
+    
+    /* MODIFIKASI UKURAN CHECKBOX */
+    .keywords-result label input[type="checkbox"] {
+        margin-right: 5px;
+        width: 14px;  /* Mengatur lebar */
+        height: 14px; /* Mengatur tinggi */
+        vertical-align: middle; /* Memastikan sejajar dengan teks */
+        accent-color: var(--accent); /* Memberikan warna aksen (opsional) */
+    }
+
+
+    .bottom-section{
+        margin-top:10px; 
+        padding:8px; 
+        border-radius:var(--radius);
+        font-size:0.85rem; 
+        background: var(--input);
+        border: 1px solid var(--border);
+    }
+
+    /* Notifikasi copy */
+    #toast {
+        background: var(--notif-copy); 
+        color:#fff; padding:8px 14px; border-radius:8px;
+        position:fixed; top:20px; right:20px;
+        font-size:13px; opacity:0; transition:all .25s; z-index:1000;
+        transform:translateY(-10px); 
+    }
+    #toast.show{opacity:1; transform:translateY(0);}
+    
+    /* === MEDIA QUERIES (RESPONSIVITAS) === */
+    @media (max-width:800px){
+      .input-area{grid-template-columns:1fr}
+      body{padding:16px;}
+      
+      /* Tombol 100% lebar di mobile */
+      .button-row button,
+      .keyword-field-container .button-row button,
+
+      /* Di mobile, hasil keyword tampil 1 kolom */
+      .keywords-result{ column-count: 1; }
+    }
+
+    /* Di layar yang sedikit lebih kecil, tampilkan 2 kolom */
+    @media (min-width: 600px) and (max-width: 1000px) {
+        .keywords-result{ column-count: 2; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <main>
+    <section id="istock-prompt">
+        <div class="section-header">
+            <h2>Prompt Keyword iStock</h2>
+            <div style="display:flex; gap:8px;">
+                <button id="theme-toggle" class="btn-header-reset" title="Ganti Tema">
+                    <span class="icon-moon">🌙</span>
+                    <span class="icon-sun">☀️</span>
+                </button>
+                <button class="btn-header-reset" onclick="resetAll()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6"/><path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                    Reset All
+                </button>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label for="judul">Judul iStock:</label>
+            <input id="judul" placeholder="Masukkan judul..." />
+        </div>
+        
+        <div class="field-group">
+            <div class="label-with-count">
+                <label for="keywordAwal">Keyword Awal (Otomatis terisi dari Organizer):</label>
+                <span id="keywordAwalCount" class="keyword-count">0 Keyword</span>
+            </div>
+            <textarea id="keywordAwal" oninput="updateKeywordAwalCount()" placeholder="Masukkan keyword awal..."></textarea>
+        </div>
+        
+        <div class="field-group">
+            <label for="hasilPrompt">Hasil Prompt iStock:</label>
+            <textarea id="hasilPrompt" readonly placeholder="Hasil prompt iStock..."></textarea>
+        </div>
+
+        <!-- Kontainer baru untuk statistik keyword -->
+        <div class="prompt-keyword-stats">
+            <span id="kw1Count" class="keyword-count-badge">Keywords 01: 0</span>
+            <span id="kw2Count" class="keyword-count-badge">Keywords 02: 0</span>
+            <span id="kw3Count" class="keyword-count-badge">Keywords 03: 0</span>
+            <span id="allKeywordCount" class="keyword-count-badge">All: 0</span>
+        </div>
+        <div class="divider"></div>
+
+        <!-- Area baru untuk tombol Paste/Del -->
+        <div class="paste-controls-grid" style="margin-top: 15px; margin-bottom: 0;">
+            <button class="btn-paste-style btn-paste-judul" onclick="pasteTo('judul')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+                Paste Judul
+            </button>
+            <button class="btn-paste-style" onclick="pasteTo('kw1')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+                Paste 1
+            </button>
+            <button class="btn-paste-style" onclick="pasteTo('kw2')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+                Paste 2
+            </button>
+            <button class="btn-paste-style" onclick="pasteTo('kw3')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+                Paste 3
+            </button>
+        </div>
+
+        <!-- Container untuk 4 tombol yang sejajar -->
+        <!-- Menggunakan grid 4 kolom dari CSS -->
+        <div class="paste-controls-grid" style="margin-top: 5px;">
+            <button class="btn-delete-field" onclick="clearField('judul')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                Hapus Judul
+            </button>
+            <button class="btn-organize-style" onclick="organizeKeywords()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 7h20"/><path d="M2 17h20"/></svg>
+                Organize
+            </button>
+            <button class="btn-generate-style btn-gen-prompt" onclick="generatePromptIstock()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                Generate
+            </button>
+            <button class="btn-copy-style" onclick="copyText('hasilPrompt')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                Copy
+            </button>
+        </div>
+    </section>
+
+    <section id="keyword-section">
+      <h2>Keyword Organizer</h2>
+
+      <!-- Area untuk tombol DEL -->
+      <div class="keyword-controls-grid" style="margin-top: 5px; margin-bottom: 15px;">
+        <button class="btn-delete-style" onclick="clearField('kw1')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6"/><path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/></svg>
+            DEL 1
+        </button>
+        <button class="btn-delete-style" onclick="clearField('kw2')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6"/><path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/></svg>
+            DEL 2
+        </button>
+        <button class="btn-delete-style" onclick="clearField('kw3')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6"/><path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/></svg>
+            DEL 3
+        </button>
+      </div>
+
+      <div class="input-area">
+        <div class="keyword-field-container">
+          <div class="keyword-top-controls">
+            <label for="kw1">Daftar Keyword 1</label>
+          </div>
+          <textarea id="kw1" oninput="updateKeywordCounts()" placeholder="Masukkan daftar keyword..." rows="1"></textarea>
+        </div>
+
+        <div class="keyword-field-container">
+          <div class="keyword-top-controls">
+            <label for="kw2">Daftar Keyword 2</label>
+          </div>
+          <textarea id="kw2" oninput="updateKeywordCounts()" placeholder="Masukkan daftar keyword..." rows="1"></textarea>
+        </div>
+
+        <div class="keyword-field-container">
+          <div class="keyword-top-controls">
+            <label for="kw3">Daftar Keyword 3</label>
+          </div>
+          <textarea id="kw3" oninput="updateKeywordCounts()" placeholder="Masukkan daftar keyword..." rows="1"></textarea>
+        </div>
+      </div>
+
+      <div class="button-row" style="gap: 8px;">
+        <button class="btn-generate-style" onclick="checkAll(true)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            Select All
+        </button>
+        <button class="btn-select-style" onclick="checkAll(false)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
+            Deselect
+        </button>
+      </div>
+
+      <div id="keywordResults" class="keywords-result" aria-live="polite"></div>
+
+      <div class="bottom-section">
+        <strong>Terpilih:</strong> <span id="count">0</span> Keyword
+        <div id="selectedKeywords" style="margin-top:6px;color:var(--subtext); overflow-wrap: break-word;"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    // Data Negara (Dipertahankan)
+    const countries = ["afghanistan","albania","algeria","andorra","angola","antigua and barbuda","argentina","armenia","australia","austria","azerbaijan",
+      "bahamas","bahrain","bangladesh","barbados","belarus","belgium","belize","benin","bhutan","bolivia","bosnia and herzegovina","botswana","brazil","brunei","bulgaria","burkina faso","burundi",
+      "cabo verde","cambodia","cameroon","canada","central african republic","chad","chile","china","colombia","comoros","congo","costa rica","croatia","cuba","cyprus","czechia",
+      "denmark","djibouti","dominica","dominican republic","ecuador","egypt","el salvador","equatorial guinea","eritrea","estonie","eswatini","ethiopia",
+      "fiji","finland","france","gabon","gambia","georgia","germany","ghana","greece","grenada","guatemala","guinea","guinea-bissau","guyana",
+      "haiti","honduras","hungary","iceland","india","indonesia","iran","iraq","ireland","israel","italy","jamaica","japan","jordan",
+      "kazakhstan","kenya","kiribati","korea north","korea south","kuwait","kyrgyzstan","laos","latvia","lebanon","lesotho","liberia","libya","liechtenstein","lithuania","luxembourg",
+      "madagascar","malawi","malaysia","maldives","mali","malta","marshall islands","mauritania","mauritius","mexico","micronesia","moldova","monaco","mongolia","montenegro","morocco","mozambique","myanmar",
+      "namibia","nauru","nepal","netherlands","new zealand","nicaragua","niger","nigeria","north macedonia","norway","oman","pakistan","palau","palestine","panama","papua new guinea","paraguay","peru","philippines","poland","portugal",
+      "qatar","romania","russia","rwanda","saint kitts and nevis","saint lucia","saint vincent and the grenadines","samoa","san marino","sao tome and principe","saudi arabia","senegal","serbia","seychelles","sierra leone","singapore","slovakia","slovenia","solomon islands","somalia","south africa","spain","sri lanka","sudan","suriname","sweden","switzerland","syria",
+      "taiwan","tajikistan","tanzania","thailand","timor-leste","togo","tonga","trinidad and tobago","tunisia","turkey","turkmenistan","tuvalu",
+      "uganda","ukraine","united arab emirates","united kingdom","united states","uruguay","uzbekistan","vanuatu","vatican city","venezuela","vietnam","yemen","zambia","zimbabwe"];
+
+    // Daftar Keyword Khusus yang Dikecualikan (Sesuai Permintaan Anda)
+    // Daftar ini TERSEMBUNYI dari tampilan HTML, tapi AKTIF sebagai filter.
+    const excludedCustomKeywords = [
+        "african people","african-american people","africa","america","adult","adults only","arms outstretched","asia","australia","beautician","beautiful people","beautiful woman","black people","boyfriend","brown hair","businesswoman","chinese people","closed","close-up","cool attitude","couple - relationship","cute","cut out","elegance","europe","facial expression","fashion","fashion model","fashionable","females","friendship","front view","girlfriend","glamour","hair","hand raised","headshot","heterosexual couple","jumping","japanese people","looking","looking at camera","lying down","long hair","males","men","natural beauty - people","one person","one woman only","one young woman only","only women","people","people of asia and india","photo","photography","portrait","screaming","shouting","side view","smiling","suit","teenage girls","teenager","thai people","two people","white people","women","young adult","young couple","young men","young women","10 seconds or greater","30 seconds or greater","4k resolution","aerial view","animated video","digital animation","digitally generated image","film - moving image","green screen","handheld shot","hd format","helicopter point of view","high angle view","low angle view","medium shot","moving image","over the shoulder view","part of a series","real time video","selective focus","slow motion","stabilized shot","time lapse","tracking shot","unrecognizable person","wide screen","wide shot"];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateKeywordAwalCount();
+      updateKeywordCounts(); // Panggil saat load
+    });
+
+    // --- FUNGSI NOTIFIKASI DINAMIS ---
+    function showToast(message = "Berhasil diproses!", type = 'copy', ms = 1300){
+        const t = document.getElementById('toast');
+        t.textContent = message; 
+
+        const colorVar = type === 'reset' ? '--notif-reset' : (type === 'copy' ? '--notif-copy' : '--btn-gen-fg'); 
+        t.style.backgroundColor = getComputedStyle(document.body).getPropertyValue(colorVar).trim();
+        
+        t.classList.add('show');
+        clearTimeout(t._h);
+        t._h = setTimeout(()=> {
+            t.classList.remove('show');
+            t.style.backgroundColor = ''; 
+        }, ms);
+    }
+
+
+    async function pasteTo(id){
+      try {
+        const txt = await navigator.clipboard.readText();
+        document.getElementById(id).value = txt;
+        showToast("Teks berhasil ditempel! 📋", 'copy'); 
+        if (id === 'keywordAwal') {
+            updateKeywordAwalCount();
+        }
+        if (id.startsWith('kw')) {
+            updateKeywordCounts();
+        }
+      } catch {
+        showToast("Gagal paste — periksa izin clipboard", 'reset');
+      }
+    }
+
+    async function copyText(id){
+      const val = document.getElementById(id).value;
+      if (!val.trim()) { showToast("Kolom kosong. Tidak ada yang disalin!", 'reset'); return; }
+      try {
+        await navigator.clipboard.writeText(val);
+        showToast("Teks berhasil disalin! ✅", 'copy');
+      } catch {
+        showToast("Gagal salin", 'reset');
+      }
+    }
+    
+    // --- FUNGSI HITUNG KEYWORD AWAL ---
+    function updateKeywordAwalCount() {
+        const k = document.getElementById('keywordAwal').value;
+        const count = k.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).length;
+        document.getElementById('keywordAwalCount').textContent = `${count} Keyword`;
+    }
+
+    // --- FUNGSI HITUNG KEYWORD DI ORGANIZER ---
+    function updateKeywordCounts() {
+        const count1 = document.getElementById('kw1').value.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).length;
+        const count2 = document.getElementById('kw2').value.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).length;
+        const count3 = document.getElementById('kw3').value.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).length;
+
+        document.getElementById('kw1Count').textContent = `Keywords 01: ${count1}`;
+        document.getElementById('kw2Count').textContent = `Keywords 02: ${count2}`;
+        document.getElementById('kw3Count').textContent = `Keywords 03: ${count3}`;
+
+        const total = count1 + count2 + count3;
+        document.getElementById('allKeywordCount').textContent = `All: ${total}`;
+    }
+
+    // --- FUNGSI ISTOCK PROMPT ---
+    function generatePromptIstock(){
+        let j = document.getElementById('judul').value.trim();
+        let k = document.getElementById('keywordAwal').value.trim();
+        if (!j || !k) {
+            showToast("Judul dan Keyword Awal harus diisi!", 'reset');
+            return;
+        }
+
+        // Hapus kurung siku yang mungkin sudah ada di input untuk menghindari duplikasi
+        if (j.startsWith('[') && j.endsWith(']')) { j = j.substring(1, j.length - 1); }
+        if (k.startsWith('[') && k.endsWith(']')) { k = k.substring(1, k.length - 1); }
+
+        // Format hasil dengan kurung siku yang konsisten
+        const hasil = `Judul: [${j}]\n\nKeyword: [${k}]\n\nInstruksi:
+1. Tambahkan hingga 3 kata tunggal dari judul jika belum ada di daftar keyword awal, untuk menjaga relevansi dan sinkronisasi. Jangan tambahkan frasa atau gabungan kata pada tahap ini.
+2. Hapus keyword yang tidak relevan dengan judul atau visual khas iStock, baik karena kurang cocok, jarang dicari, atau tidak menjelaskan isi visual dengan tepat.
+3. Hapus semua keyword yang mengandung unsur berhak cipta (misalnya: nama merek dagang, judul film, nama karakter, software, nama perusahaan, dll).
+4. Jangan ubah, pecah, atau singkat keyword yang sudah ada, termasuk frasa tiga kata atau lebih. Pertahankan semua keyword sesuai bentuk aslinya.
+5. Kelompokkan keyword ke dalam tiga kategori:
+   - Essential Keywords (10–15 kata): Objek utama, tema sentral, dan istilah paling kompetitif.
+   - Main Keywords (15–20 kata): Unsur visual, teknis, warna, dan elemen pendukung lainnya.
+   - Additional Keywords (sisanya): Kata pendukung, sinonim, metafora visual, atau gaya presentasi.
+6. Setelah pengelompokan, gabungkan semua keyword ke dalam satu baris dengan urutan kategori: essential > main > additional. Gunakan huruf kecil semua, pisahkan dengan koma, dan jaga frasa tetap utuh sesuai aslinya.
+7. Batas jumlah keyword maksimal 50.
+   - Jika total lebih dari 50, hapus keyword paling tidak relevan dimulai dari kategori Additional, lalu dari bagian bawah kategori Main jika masih melebihi.
+   - Jangan hapus Essential. Pastikan semua Essential selalu dipertahankan.
+   - Hasil akhir tepat 50 keyword, Jika jumlah kurang dari 50, tambahkan kembali keyword dari daftar yang dihapus (pilih yang paling relevan terlebih dahulu) sampai genap 50. tapi jangan masukan kata yang mengandung unsur hak cipta.
+8. Setelah selesai, tampilkan:
+   - Proses detail: jelaskan apa yang dihapus, ditambahkan, dan perubahan urutan.
+   - Daftar akhir keyword (digabung jadi satu baris, dipisahkan dengan koma).
+   - Sebutkan jumlah total keyword.
+   - Tandai keyword urutan 1–15 sebagai Essential.
+9.Deskripsi:
+ Buat deskripsi sepanjang ±150 karakter, profesional dan selaras dengan judul serta keyword. Fokus pada isi visual dan konteks penggunaannya.`;
+
+        document.getElementById('hasilPrompt').value = hasil;
+        showToast("Prompt iStock berhasil dibuat ⚡", 'generate');
+    }
+    // ------------------------------------------
+
+
+    function _collectFrom(id){
+      return document.getElementById(id).value
+        .split(/[\n,]+/)
+        .map(s => s.trim().toLowerCase())
+        .filter(Boolean);
+    }
+
+    function organizeKeywords(){
+      const all = ['kw1','kw2','kw3'].flatMap(_collectFrom);
+      
+      // Gabungkan daftar negara dan daftar keyword custom yang tersembunyi
+      const exclusionList = [...countries, ...excludedCustomKeywords];
+
+      // Proses filtering
+      const filtered = all.filter(k => !exclusionList.includes(k));
+      const unique = [...new Set(filtered)].sort((a,b) => a.localeCompare(b));
+      
+      const container = document.getElementById('keywordResults');
+      container.innerHTML = '';
+      if(unique.length === 0){
+        showToast("Tidak ada keyword untuk diorganisir setelah filter", 'reset');
+        updateSelected(); 
+        return;
+      }
+      const frag = document.createDocumentFragment();
+      unique.forEach(k => {
+        const label = document.createElement('label');
+        label.innerHTML = `<input type="checkbox" onchange="updateSelected()" checked> ${escapeHtml(k)}`;
+        frag.appendChild(label);
+      });
+      container.appendChild(frag);
+      updateSelected(); 
+      showToast(`Berhasil mengorganisir ${unique.length} keyword`, 'generate');
+    }
+
+    function escapeHtml(str){
+      return str.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+    }
+
+    function updateSelected(){
+      const checkedInputs = Array.from(document.querySelectorAll('#keywordResults input[type="checkbox"]:checked'));
+      const values = checkedInputs.map(input => input.parentNode.textContent.trim());
+      const keywordsString = values.join(', '); 
+      
+      document.getElementById('selectedKeywords').textContent = keywordsString;
+      document.getElementById('count').textContent = values.length;
+      document.getElementById('keywordAwal').value = keywordsString; 
+      updateKeywordAwalCount(); 
+    }
+
+    function checkAll(state){
+      const inputs = document.querySelectorAll('#keywordResults input[type="checkbox"]');
+      inputs.forEach(i => i.checked = state);
+      updateSelected();
+      showToast(state ? "Semua keyword terpilih" : "Semua keyword dibatalkan", state ? 'copy' : 'reset');
+    }
+
+    function resetAll(){
+      // Reset semua kolom input pengguna
+      document.getElementById('judul').value = '';
+      document.getElementById('keywordAwal').value = '';
+      document.getElementById('hasilPrompt').value = '';
+      document.getElementById('kw1').value = '';
+      document.getElementById('kw2').value = '';
+      document.getElementById('kw3').value = '';
+      document.getElementById('keywordResults').innerHTML = '';
+      document.getElementById('selectedKeywords').textContent = '';
+      document.getElementById('count').textContent = '0';
+      updateKeywordAwalCount(); 
+      updateKeywordCounts();
+      showToast("Semua kolom berhasil direset 🗑️", 'reset');
+    }
+
+    function clearField(id){ 
+        document.getElementById(id).value = ''; 
+        showToast("Kolom dihapus 🗑️", 'reset');
+        
+        if(id === 'keywordAwal') {
+             document.getElementById('selectedKeywords').textContent = '';
+             document.getElementById('count').textContent = '0';
+             updateKeywordAwalCount();
+        }
+        if (id.startsWith('kw')) {
+            updateKeywordCounts();
+        }
+    }
+
+    document.addEventListener('keydown', e => {
+      if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
+        e.preventDefault();
+        organizeKeywords();
+      }
+    });
+
+    // --- FUNGSI THEME TOGGLE ---
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    // Fungsi untuk mengatur tema saat halaman dimuat
+    function initializeTheme() {
+        // Default ke dark mode jika tidak ada preferensi tersimpan
+        document.body.setAttribute('data-theme', 'dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.body.setAttribute('data-theme', newTheme);
+    });
+
+    initializeTheme(); // Panggil fungsi saat script dimuat
+  </script>
+</body>
+</html>
