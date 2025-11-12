@@ -26,10 +26,12 @@
 
       /* Warna kustom untuk tombol spesifik */
       --btn-paste-judul-bg: #fde7f3; --btn-paste-judul-fg: #d63384; /* Pink */
+      --btn-paste-judul-bg: #fde7f3; --btn-paste-judul-fg: #d63384;
       --btn-gen-prompt-bg: #fff3e0;  --btn-gen-prompt-fg: #fb8c00; /* Orange */
 
       --notif-copy:#2ecc71;
       --notif-reset:#e74c3c;
+      --notif-reset:#e74c3c;    
     }
 
     /* VARIAN DARK MODE - DIJADIKAN DEFAULT */
@@ -206,6 +208,10 @@
     .btn-paste-judul { background: var(--btn-paste-judul-bg); color: var(--btn-paste-judul-fg); font-weight: 600; }
     .btn-gen-prompt  { background: var(--btn-gen-prompt-bg);  color: var(--btn-gen-prompt-fg); }
     
+    .badge-purple { color: #9b59b6; } /* Ungu Cerah */
+    .badge-blue { color: #3498db; } /* Biru */
+    .badge-green { color: rgb(2, 171, 2); } /* Hijau */
+    
     /* === KEYWORD ORGANIZER STYLES === */
     .input-area{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0}
     
@@ -254,8 +260,8 @@
     .keyword-count-badge {
         background: var(--input);
         color: var(--subtext);
-        padding: 3px 8px;
-        font-size: 11px;
+        padding: 4px 10px;
+        font-size: 12px;
         border-radius: 999px;
         font-weight: 600;
         border: 1px solid var(--border);
@@ -271,12 +277,8 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
-        gap: 10px;
+        gap: 1px;
         margin-top: 15px;
-        padding: 10px;
-        background: var(--input);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
     }
     .divider {
         border-top: 1px solid var(--border);
@@ -314,6 +316,10 @@
     .btn-select-style   { background: var(--btn-gen-bg);   color: var(--btn-gen-fg); } 
     .btn-delete-style   { background: var(--btn-reset-bg);    color: var(--btn-reset-fg); }    
     
+    /* Aturan untuk ikon minimize/maximize di Keyword Organizer */
+    #keyword-section.minimized .icon-minimize { display: none; }
+    #keyword-section:not(.minimized) .icon-maximize { display: none; }
+
     /* HASIL KEYWORD (3 KOLOM) */
     .keywords-result{
       margin-top:8px;
@@ -419,11 +425,11 @@
 
         <!-- Kontainer baru untuk statistik keyword -->
         <div class="prompt-keyword-stats">
-            <span id="kw1Count" class="keyword-count-badge badge-purple">Key 01: 0</span>
-            <span id="kw2Count" class="keyword-count-badge badge-purple">Key 02: 0</span>
-            <span id="kw3Count" class="keyword-count-badge badge-purple">Key 03: 0</span>
-            <span id="allKeywordCount" class="keyword-count-badge badge-red">All: 0</span>
-            <span id="akhirCount" class="keyword-count-badge badge-blue">akhir: 0</span>
+            <span class="keyword-count-badge">Key 01: <span id="kw1Count" class="badge-purple">0</span></span>
+            <span class="keyword-count-badge">Key 02: <span id="kw2Count" class="badge-purple">0</span></span>
+            <span class="keyword-count-badge">Key 03: <span id="kw3Count" class="badge-purple">0</span></span>
+            <span class="keyword-count-badge">All: <span id="allKeywordCount" class="badge-blue">0</span></span>
+            <span class="keyword-count-badge">akhir: <span id="akhirCount" class="badge-green">0</span></span>
         </div>
         <div class="divider"></div>
 
@@ -470,10 +476,22 @@
     </section>
 
     <section id="keyword-section">
-      <h2>Keyword Organizer</h2>
+      <div class="section-header">
+        <h2>Keyword Organizer</h2>
+        <div style="display:flex; gap:8px;">
+            <button id="toggle-organizer-btn" class="btn-header-reset" title="Buka/Tutup Organizer">
+                <svg class="icon-maximize" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <svg class="icon-minimize" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+        </div>
+      </div>
+
+      <!-- Konten yang bisa di-minimize -->
+      <div id="organizer-content">
 
       <!-- Area untuk tombol DEL -->
       <div class="keyword-controls-grid" style="margin-top: 5px; margin-bottom: 15px;">
+
         <button class="btn-delete-style" onclick="clearField('kw1')">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6"/><path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/></svg>
             DEL 1
@@ -528,6 +546,7 @@
         <strong>Terpilih:</strong> <span id="count">0</span> Keyword
         <div id="selectedKeywords" style="margin-top:6px;color:var(--subtext); overflow-wrap: break-word;"></div>
       </div>
+    </div> <!-- Penutup #organizer-content -->
     </section>
   </main>
 
@@ -556,6 +575,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       updateKeywordAwalCount();
       updateKeywordCounts(); // Panggil saat load
+      initializeOrganizerState(); // Panggil fungsi untuk set state awal organizer
     });
 
     // --- FUNGSI NOTIFIKASI DINAMIS ---
@@ -606,21 +626,21 @@
     function updateKeywordAwalCount() {
         const k = document.getElementById('keywordAwal').value;
         const count = k.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).length;
-        document.getElementById('akhirCount').textContent = `akhir: ${count}`;
+        document.getElementById('akhirCount').textContent = count;
     }
 
     // --- FUNGSI HITUNG KEYWORD DI ORGANIZER ---
     function updateKeywordCounts() {
-        const count1 = document.getElementById('kw1').value.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).length;
-        const count2 = document.getElementById('kw2').value.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).length;
-        const count3 = document.getElementById('kw3').value.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).length;
+        const count1 = (document.getElementById('kw1').value.match(/[\n,]/g) || []).length + (document.getElementById('kw1').value.trim() ? 1 : 0);
+        const count2 = (document.getElementById('kw2').value.match(/[\n,]/g) || []).length + (document.getElementById('kw2').value.trim() ? 1 : 0);
+        const count3 = (document.getElementById('kw3').value.match(/[\n,]/g) || []).length + (document.getElementById('kw3').value.trim() ? 1 : 0);
 
-        document.getElementById('kw1Count').textContent = `Key 01: ${count1}`;
-        document.getElementById('kw2Count').textContent = `Key 02: ${count2}`;
-        document.getElementById('kw3Count').textContent = `Key 03: ${count3}`;
+        document.getElementById('kw1Count').textContent = count1;
+        document.getElementById('kw2Count').textContent = count2;
+        document.getElementById('kw3Count').textContent = count3;
 
         const total = count1 + count2 + count3;
-        document.getElementById('allKeywordCount').textContent = `All: ${total}`;
+        document.getElementById('allKeywordCount').textContent = total;
     }
 
     // --- FUNGSI ISTOCK PROMPT ---
@@ -759,6 +779,27 @@
       }
     });
 
+    // --- FUNGSI MINIMIZE/MAXIMIZE KEYWORD ORGANIZER ---
+    const toggleBtn = document.getElementById('toggle-organizer-btn');
+    const organizerContent = document.getElementById('organizer-content');
+    const keywordSection = document.getElementById('keyword-section');
+
+    function initializeOrganizerState() {
+        // Default state: minimized
+        keywordSection.classList.add('minimized');
+        organizerContent.style.display = 'none';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        const isMinimized = keywordSection.classList.toggle('minimized');
+        if (isMinimized) {
+            organizerContent.style.display = 'none';
+            toggleBtn.title = "Buka Organizer";
+        } else {
+            organizerContent.style.display = 'block';
+            toggleBtn.title = "Tutup Organizer";
+        }
+    });
     // --- FUNGSI THEME TOGGLE ---
     const themeToggle = document.getElementById('theme-toggle');
     
