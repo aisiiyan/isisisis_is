@@ -736,23 +736,30 @@
  Buat deskripsi sepanjang ±150 karakter, profesional dan selaras dengan judul serta keyword. Fokus pada isi visual dan konteks penggunaannya.`;
 
     // Placeholder untuk Adobe Stock, Anda bisa mengedit isinya.
-    const ADOBE_STOCK_INSTRUCTIONS = `Instruksi Adobe Stock:
-1. (EDIT) Tambahkan hingga 3 kata tunggal dari judul jika belum ada di daftar keyword awal, untuk menjaga relevansi dan sinkronisasi. Jangan tambahkan frasa atau gabungan kata pada tahap ini.
-2. (EDIT) Hapus keyword yang tidak relevan dengan judul atau visual khas Adobe, baik karena kurang cocok, jarang dicari, atau tidak menjelaskan isi visual dengan tepat.
-3. (EDIT) Hapus semua keyword yang mengandung unsur berhak cipta (misalnya: nama merek dagang, judul film, nama karakter, software, nama perusahaan, dll).
-4. (EDIT) Jangan ubah, pecah, atau singkat keyword yang sudah ada, termasuk frasa tiga kata atau lebih. Pertahankan semua keyword sesuai bentuk aslinya.
-5. (EDIT) Kelompokkan keyword ke dalam tiga kategori:
-   - Essential Keywords (10–15 kata): Objek utama, tema sentral, dan istilah paling kompetitif.
-   - Main Keywords (15–20 kata): Unsur visual, teknis, warna, dan elemen pendukung lainnya.
-   - Additional Keywords (sisanya): Kata pendukung, sinonim, metafora visual, atau gaya presentasi.
-6. (EDIT) Setelah pengelompokan, gabungkan semua keyword ke dalam satu baris dengan urutan kategori: essential > main > additional. Gunakan huruf kecil semua, pisahkan dengan koma, dan jaga frasa tetap utuh sesuai aslinya.
-7. (EDIT) Batas jumlah keyword maksimal 49.
-8. (EDIT) Setelah selesai, tampilkan:
+    const ADOBE_STOCK_INSTRUCTIONS = `Instruksi:
+1. Hapus semua keyword yang terdeteksi duplikat.
+2. Hapus semua keyword yang mengandung unsur berhak cipta (misalnya: nama merek dagang, judul film, nama karakter, software, nama perusahaan, dll).
+3. Hapus keyword yang tidak relevan dengan judul/gambar. Keyword yang masih ada hubungan konteks tetap dipertahankan.
+4. Tambahkan maksimal 3 kata tunggal dari judul jika belum ada di daftar keyword awal.
+5. Urutkan keyword sesuai kategori prioritas berikut (paling relevan di awal, paling umum di akhir):
+   - Produk Utama → objek inti gambar.
+   - Aplikasi Produk → kegunaan atau tujuan gambar.
+   - Mood / Style → suasana atau gaya visual.
+   - Teknik / Media → metode pembuatan atau format file.
+   - Kata Pendukung Umum → kata yang bersifat luas untuk jangkauan trafik.
+6. Prioritaskan 15 keyword pertama untuk:
+   - Relevansi paling tinggi.
+   - Volume pencarian tinggi di stok foto.
+   - Minimal 3 kata penting dari judul ada di urutan 1–10.
+7. Batasi hasil akhir menjadi **tepat 49 keyword**:
+   - Jika jumlah kurang dari 49, tambahkan kembali keyword dari daftar yang dihapus (pilih yang paling relevan terlebih dahulu) sampai genap 49.
+   - Jika jumlah lebih dari 49, buang keyword dari prioritas terbawah sampai tersisa 49.
+8. Setelah selesai, tampilkan:
+   - Daftar keyword yang di salin
    - Proses detail: jelaskan apa yang dihapus, ditambahkan, dan perubahan urutan.
    - Daftar akhir keyword (digabung jadi satu baris, dipisahkan dengan koma).
    - Sebutkan jumlah total keyword.
-9. (EDIT) Deskripsi:
- Buat deskripsi sepanjang ±200 karakter, profesional dan selaras dengan judul serta keyword. Fokus pada isi visual dan konteks penggunaannya.`;
+   - Tandai keyword urutan 1–15 sebagai Essential.`;
 
     // --- FUNGSI GENERATE PROMPT (DINAMIS) ---
     function generatePrompt(){
