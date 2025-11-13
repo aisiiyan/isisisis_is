@@ -432,13 +432,27 @@
   <main>
     <section id="actions-and-stats">
          <div class="section-header">
-            <h2>Actions & Stats</h2>
-            <!-- Prompt Type Selector -->
-            <div class="prompt-selector">
-                <input type="radio" id="prompt-type-istock" name="prompt-type" value="istock" checked>
-                <label for="prompt-type-istock">iStock</label>
-                <input type="radio" id="prompt-type-adobe" name="prompt-type" value="adobe">
-                <label for="prompt-type-adobe">Adobe</label>
+             <h2>Actions</h2>
+             <div style="display: flex; align-items: center; gap: 8px;">
+                 <button class="btn-delete-field btn-header-reset" onclick="clearField('judul')" title="Hapus Judul" style="padding: 6px 10px;">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                     Hapus Judul
+                 </button>
+                 <!-- Prompt Type Selector -->
+                 <div class="prompt-selector">
+                     <input type="radio" id="prompt-type-istock" name="prompt-type" value="istock" checked>
+                     <label for="prompt-type-istock">iStock</label>
+                     <input type="radio" id="prompt-type-adobe" name="prompt-type" value="adobe">
+                     <label for="prompt-type-adobe">Adobe</label>
+                 </div>
+                 <button class="btn-header-reset" onclick="resetAll()">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6"/><path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                     Reset All
+                 </button>
+                 <button id="theme-toggle" class="btn-header-reset" title="Ganti Tema">
+                     <span class="icon-moon">🌙</span>
+                     <span class="icon-sun">☀️</span>
+                 </button>
             </div>
          </div>
 
@@ -454,7 +468,7 @@
              <span class="keyword-count-badge">akhir: <span id="akhirCount" class="badge-green">0</span></span>
          </div>
          <div class="divider"></div>
- 
+
          <!-- Area baru untuk tombol Paste/Del -->
          <div class="paste-controls-grid" style="margin-top: 15px; margin-bottom: 0;">
              <button class="btn-paste-style btn-paste-judul" onclick="pasteTo('judul')">
@@ -476,12 +490,10 @@
          </div>
  
          <!-- Container untuk 4 tombol yang sejajar -->
+         <div class="divider"></div>
+
          <!-- Menggunakan grid 4 kolom dari CSS -->
          <div class="paste-controls-grid" style="margin-top: 5px; grid-template-columns: repeat(3, 1fr);">
-             <button class="btn-delete-field" onclick="clearField('judul')">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
-                 Hapus Judul
-             </button>
              <button class="btn-generate-style btn-gen-prompt" onclick="organizeAndGenerate()">
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                  Organize & Generate
@@ -497,14 +509,6 @@
          <div class="section-header">
              <h2>Prompt Keyword</h2>
              <div style="display:flex; gap:8px;">
-                 <button id="theme-toggle" class="btn-header-reset" title="Ganti Tema">
-                     <span class="icon-moon">🌙</span>
-                     <span class="icon-sun">☀️</span>
-                 </button>
-                 <button class="btn-header-reset" onclick="resetAll()">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6"/><path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-                     Reset All
-                 </button>
                  <button id="toggle-istock-prompt-btn" class="btn-header-reset" title="Buka/Tutup Prompt">
                      <svg class="icon-maximize" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                      <svg class="icon-minimize" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
