@@ -25,13 +25,11 @@
       --btn-select-bg:#fff3e0;  --btn-select-fg:#fb8c00;
 
       /* Warna kustom untuk tombol spesifik */
-      --btn-paste-judul-bg: #fde7f3; --btn-paste-judul-fg: #d63384; /* Pink */
       --btn-paste-judul-bg: #fde7f3; --btn-paste-judul-fg: #d63384;
       --btn-gen-prompt-bg: #fff3e0;  --btn-gen-prompt-fg: #fb8c00; /* Orange */
 
       --notif-copy:#2ecc71;
       --notif-reset:#e74c3c;
-      --notif-reset:#e74c3c;    
     }
 
     /* VARIAN DARK MODE - DIJADIKAN DEFAULT */
@@ -188,15 +186,6 @@
     button:hover{ filter: brightness(1.05); } 
     button:active{ transform: translateY(1px); } /* Efek tekan */
     
-    /* Tombol 4 Sejajar */
-    .button-4-col button {
-        flex: 1 1 calc(25% - 6px); /* 4 tombol dengan gap 8px (25% - 3/4 dari gap) */
-        width: 16px; 
-        height: 16px; 
-        stroke-width: 2.2; 
-        color: currentColor; 
-    } 
-
     /* Warna Tombol (Menggunakan skema Soft/Subtle) */
     .btn-paste-style   { background:var(--btn-paste-bg);  color:var(--btn-paste-fg);}
     .btn-generate-style{ background:var(--btn-gen-bg);    color:var(--btn-gen-fg);}
@@ -208,7 +197,7 @@
     .btn-paste-judul { background: var(--btn-paste-judul-bg); color: var(--btn-paste-judul-fg); font-weight: 600; }
     .btn-gen-prompt  { background: var(--btn-gen-prompt-bg);  color: var(--btn-gen-prompt-fg); }
     
-    .badge-purple { color: #9b59b6; } /* Ungu Cerah */
+    .badge-purple { color: #ad56cf; } /* Ungu Cerah */
     .badge-blue { color: #3498db; } /* Biru */
     .badge-green { color: rgb(2, 171, 2); } /* Hijau */
     
@@ -231,27 +220,6 @@
         align-items: center;
         gap: 8px;
         margin-bottom: 8px; 
-    }
-    .keyword-field-container .keyword-top-controls label {
-        margin-bottom: 0;
-        flex: 1;
-    }
-    .keyword-field-container .keyword-top-controls .button-row {
-        margin-top: 0;
-        gap: 4px; 
-    }
-    .keyword-field-container .keyword-top-controls .button-row button {
-        height: 30px; 
-        font-size: 11px;
-        padding: 5px 8px; 
-        flex: 0 0 auto; 
-    }
-    .keyword-field-container .keyword-top-controls .keyword-button-pair {
-        display: flex;
-        gap: 4px;
-    }
-    .keyword-field-container .keyword-top-controls .keyword-button-pair button {
-        flex: 1 1 0%;
     }
     /* Mengurangi ukuran ikon di tombol kecil */
     .keyword-field-container .keyword-top-controls .button-row button svg { width: 14px; height: 14px; }
@@ -280,6 +248,29 @@
         gap: 1px;
         margin-top: 15px;
     }
+    /* Style untuk kapsul status keyword */
+    .keyword-status-badge {
+        padding: 4px 8px;
+        font-size: 11px;
+        border-radius: 999px;
+        font-weight: 700;
+        border: 1px solid transparent;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        min-width: 30px;
+        text-align: center;
+        margin-right: 4px; /* Jarak antar status badge */
+    }
+    .keyword-status-badge.status-empty {
+        background-color: var(--input);
+        color: var(--subtext);
+        border-color: var(--border);
+    }
+    .keyword-status-badge.status-filled {
+        background-color: var(--btn-copy-bg);
+        color: var(--btn-copy-fg);
+        border-color: var(--btn-copy-bg);
+    }
+
     .divider {
         border-top: 1px solid var(--border);
         margin: 20px 0 15px 0;
@@ -312,13 +303,59 @@
         gap: 8px;
     }
     /* Warna Tombol Keyword Organizer */
-    .btn-organize-style { background: var(--btn-organize-bg); color: var(--btn-organize-fg); }
     .btn-select-style   { background: var(--btn-gen-bg);   color: var(--btn-gen-fg); } 
     .btn-delete-style   { background: var(--btn-reset-bg);    color: var(--btn-reset-fg); }    
     
     /* Aturan untuk ikon minimize/maximize di Keyword Organizer */
     #keyword-section.minimized .icon-minimize { display: none; }
     #keyword-section:not(.minimized) .icon-maximize { display: none; }
+    /* Aturan untuk ikon minimize/maximize di Prompt Keyword iStock */
+    #istock-prompt.minimized .icon-minimize { display: none; }
+    #istock-prompt:not(.minimized) .icon-maximize { display: none; }
+
+    /* === PROMPT TYPE SELECTOR === */
+    .prompt-selector {
+        display: flex;
+        background: var(--input);
+        border-radius: var(--radius);
+        padding: 4px;
+        border: 1px solid var(--border);
+        margin-bottom: 15px;
+    }
+    .prompt-selector input[type="radio"] {
+        display: none;
+    }
+    .prompt-selector label {
+        flex: 1;
+        text-align: center;
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--subtext);
+        transition: all 0.2s ease-in-out;
+        margin-bottom: 0;
+    }
+    .prompt-selector input[type="radio"]:checked + label {
+        background: var(--btn-copy-bg);
+        color: var(--btn-copy-fg);
+        font-weight: 600;
+    }
+
+    /* Penyesuaian ukuran selector saat di dalam header */
+    .section-header .prompt-selector {
+        margin-bottom: 0;
+        padding: 3px;
+        border-radius: 7px; /* Sedikit lebih kecil dari default */
+    }
+    .section-header .prompt-selector label {
+        padding: 3px 14px; /* Dibuat lebih ringkas */
+        font-size: 11px;
+        font-weight: 500;
+        border-radius: 5px; /* Radius lebih kecil untuk tampilan modern */
+    }
+
 
     /* HASIL KEYWORD (3 KOLOM) */
     .keywords-result{
@@ -393,87 +430,105 @@
 <body data-theme="dark">
 
   <main>
-    <section id="istock-prompt">
-        <div class="section-header">
-            <h2>Prompt Keyword iStock</h2>
-            <div style="display:flex; gap:8px;">
-                <button id="theme-toggle" class="btn-header-reset" title="Ganti Tema">
-                    <span class="icon-moon">🌙</span>
-                    <span class="icon-sun">☀️</span>
-                </button>
-                <button class="btn-header-reset" onclick="resetAll()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6"/><path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-                    Reset All
-                </button>
+    <section id="actions-and-stats">
+         <div class="section-header">
+            <h2>Actions & Stats</h2>
+            <!-- Prompt Type Selector -->
+            <div class="prompt-selector">
+                <input type="radio" id="prompt-type-istock" name="prompt-type" value="istock" checked>
+                <label for="prompt-type-istock">iStock</label>
+                <input type="radio" id="prompt-type-adobe" name="prompt-type" value="adobe">
+                <label for="prompt-type-adobe">Adobe</label>
+            </div>
+         </div>
+
+         <!-- Kontainer baru untuk statistik keyword -->
+         <div class="prompt-keyword-stats">
+             <!-- Indikator Status Judul -->
+             <span id="judul-status" class="keyword-status-badge status-empty">Judul</span>
+             <!-- Badge Jumlah Keyword -->
+             <span class="keyword-count-badge">Key 01: <span id="kw1Count" class="badge-purple">0</span></span>
+             <span class="keyword-count-badge">Key 02: <span id="kw2Count" class="badge-purple">0</span></span>
+             <span class="keyword-count-badge">Key 03: <span id="kw3Count" class="badge-purple">0</span></span>
+             <span class="keyword-count-badge">All: <span id="allKeywordCount" class="badge-blue">0</span></span>
+             <span class="keyword-count-badge">akhir: <span id="akhirCount" class="badge-green">0</span></span>
+         </div>
+         <div class="divider"></div>
+ 
+         <!-- Area baru untuk tombol Paste/Del -->
+         <div class="paste-controls-grid" style="margin-top: 15px; margin-bottom: 0;">
+             <button class="btn-paste-style btn-paste-judul" onclick="pasteTo('judul')">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+                 Paste Judul
+             </button>
+             <button class="btn-paste-style" onclick="pasteTo('kw1')">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+                 Paste 1
+             </button>
+             <button class="btn-paste-style" onclick="pasteTo('kw2')">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+                 Paste 2
+             </button>
+             <button class="btn-paste-style" onclick="pasteTo('kw3')">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+                 Paste 3
+             </button>
+         </div>
+ 
+         <!-- Container untuk 4 tombol yang sejajar -->
+         <!-- Menggunakan grid 4 kolom dari CSS -->
+         <div class="paste-controls-grid" style="margin-top: 5px; grid-template-columns: repeat(3, 1fr);">
+             <button class="btn-delete-field" onclick="clearField('judul')">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                 Hapus Judul
+             </button>
+             <button class="btn-generate-style btn-gen-prompt" onclick="organizeAndGenerate()">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                 Organize & Generate
+             </button>
+             <button class="btn-copy-style" onclick="copyText('hasilPrompt')">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                 Copy
+             </button>
+         </div>
+     </section>
+ 
+     <section id="istock-prompt">
+         <div class="section-header">
+             <h2>Prompt Keyword iStock</h2>
+             <div style="display:flex; gap:8px;">
+                 <button id="theme-toggle" class="btn-header-reset" title="Ganti Tema">
+                     <span class="icon-moon">🌙</span>
+                     <span class="icon-sun">☀️</span>
+                 </button>
+                 <button class="btn-header-reset" onclick="resetAll()">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6"/><path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                     Reset All
+                 </button>
+                 <button id="toggle-istock-prompt-btn" class="btn-header-reset" title="Buka/Tutup Prompt">
+                     <svg class="icon-maximize" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                     <svg class="icon-minimize" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                 </button>
+             </div>
+         </div>
+ 
+        <div id="istock-prompt-content">
+            <div class="field-group">
+                <label for="judul">Judul iStock:</label>
+                <input id="judul" placeholder="Masukkan judul..." oninput="updateKeywordCounts()" />
+            </div>
+            
+            <div class="field-group">
+                <label for="keywordAwal">Keyword Awal (Otomatis terisi dari Organizer):</label>
+                <textarea id="keywordAwal" oninput="updateKeywordAwalCount()" placeholder="Masukkan keyword awal..."></textarea>
+            </div>
+            
+            <div class="field-group">
+                <label for="hasilPrompt">Hasil Prompt iStock:</label>
+                <textarea id="hasilPrompt" readonly placeholder="Hasil prompt iStock..."></textarea>
             </div>
         </div>
-
-        <div class="field-group">
-            <label for="judul">Judul iStock:</label>
-            <input id="judul" placeholder="Masukkan judul..." />
-        </div>
-        
-        <div class="field-group">
-            <label for="keywordAwal">Keyword Awal (Otomatis terisi dari Organizer):</label>
-            <textarea id="keywordAwal" oninput="updateKeywordAwalCount()" placeholder="Masukkan keyword awal..."></textarea>
-        </div>
-        
-        <div class="field-group">
-            <label for="hasilPrompt">Hasil Prompt iStock:</label>
-            <textarea id="hasilPrompt" readonly placeholder="Hasil prompt iStock..."></textarea>
-        </div>
-
-        <!-- Kontainer baru untuk statistik keyword -->
-        <div class="prompt-keyword-stats">
-            <span class="keyword-count-badge">Key 01: <span id="kw1Count" class="badge-purple">0</span></span>
-            <span class="keyword-count-badge">Key 02: <span id="kw2Count" class="badge-purple">0</span></span>
-            <span class="keyword-count-badge">Key 03: <span id="kw3Count" class="badge-purple">0</span></span>
-            <span class="keyword-count-badge">All: <span id="allKeywordCount" class="badge-blue">0</span></span>
-            <span class="keyword-count-badge">akhir: <span id="akhirCount" class="badge-green">0</span></span>
-        </div>
-        <div class="divider"></div>
-
-        <!-- Area baru untuk tombol Paste/Del -->
-        <div class="paste-controls-grid" style="margin-top: 15px; margin-bottom: 0;">
-            <button class="btn-paste-style btn-paste-judul" onclick="pasteTo('judul')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
-                Paste Judul
-            </button>
-            <button class="btn-paste-style" onclick="pasteTo('kw1')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
-                Paste 1
-            </button>
-            <button class="btn-paste-style" onclick="pasteTo('kw2')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
-                Paste 2
-            </button>
-            <button class="btn-paste-style" onclick="pasteTo('kw3')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
-                Paste 3
-            </button>
-        </div>
-
-        <!-- Container untuk 4 tombol yang sejajar -->
-        <!-- Menggunakan grid 4 kolom dari CSS -->
-        <div class="paste-controls-grid" style="margin-top: 5px;">
-            <button class="btn-delete-field" onclick="clearField('judul')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
-                Hapus Judul
-            </button>
-            <button class="btn-organize-style" onclick="organizeKeywords()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 7h20"/><path d="M2 17h20"/></svg>
-                Organize
-            </button>
-            <button class="btn-generate-style btn-gen-prompt" onclick="generatePromptIstock()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                Generate
-            </button>
-            <button class="btn-copy-style" onclick="copyText('hasilPrompt')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                Copy
-            </button>
-        </div>
-    </section>
+     </section>
 
     <section id="keyword-section">
       <div class="section-header">
@@ -576,6 +631,7 @@
       updateKeywordAwalCount();
       updateKeywordCounts(); // Panggil saat load
       initializeOrganizerState(); // Panggil fungsi untuk set state awal organizer
+      initializeIstockPromptState(); // Panggil fungsi untuk set state awal prompt istock
     });
 
     // --- FUNGSI NOTIFIKASI DINAMIS ---
@@ -606,6 +662,9 @@
         if (id.startsWith('kw')) {
             updateKeywordCounts();
         }
+        if (id === 'judul') {
+            updateKeywordCounts();
+        }
       } catch {
         showToast("Gagal paste — periksa izin clipboard", 'reset');
       }
@@ -631,56 +690,94 @@
 
     // --- FUNGSI HITUNG KEYWORD DI ORGANIZER ---
     function updateKeywordCounts() {
-        const count1 = (document.getElementById('kw1').value.match(/[\n,]/g) || []).length + (document.getElementById('kw1').value.trim() ? 1 : 0);
-        const count2 = (document.getElementById('kw2').value.match(/[\n,]/g) || []).length + (document.getElementById('kw2').value.trim() ? 1 : 0);
-        const count3 = (document.getElementById('kw3').value.match(/[\n,]/g) || []).length + (document.getElementById('kw3').value.trim() ? 1 : 0);
+        const kw1 = document.getElementById('kw1').value.trim();
+        const kw2 = document.getElementById('kw2').value.trim();
+        const kw3 = document.getElementById('kw3').value.trim();
+        const judul = document.getElementById('judul').value.trim(); // Ambil nilai judul
 
+        const count1 = kw1 ? (kw1.match(/[\n,]/g) || []).length + 1 : 0;
+        const count2 = kw2 ? (kw2.match(/[\n,]/g) || []).length + 1 : 0;
+        const count3 = kw3 ? (kw3.match(/[\n,]/g) || []).length + 1 : 0;
+
+        // Update Tampilan Jumlah
         document.getElementById('kw1Count').textContent = count1;
         document.getElementById('kw2Count').textContent = count2;
         document.getElementById('kw3Count').textContent = count3;
 
         const total = count1 + count2 + count3;
         document.getElementById('allKeywordCount').textContent = total;
+
+        // Update Indikator Status untuk Judul
+        const judulStatusClass = judul ? 'status-filled' : 'status-empty';
+        document.getElementById('judul-status').className = `keyword-status-badge ${judulStatusClass}`;
     }
 
-    // --- FUNGSI ISTOCK PROMPT ---
-    function generatePromptIstock(){
+    // --- TEMPLATE INSTRUKSI ---
+    const ISTOCK_INSTRUCTIONS = `Instruksi:
+1. Tambahkan hingga 3 kata tunggal dari judul jika belum ada di daftar keyword awal, untuk menjaga relevansi dan sinkronisasi. Jangan tambahkan frasa atau gabungan kata pada tahap ini.
+2. Hapus keyword yang tidak relevan dengan judul atau visual khas iStock, baik karena kurang cocok, jarang dicari, atau tidak menjelaskan isi visual dengan tepat.
+3. Hapus semua keyword yang mengandung unsur berhak cipta (misalnya: nama merek dagang, judul film, nama karakter, software, nama perusahaan, dll).
+4. Jangan ubah, pecah, atau singkat keyword yang sudah ada, termasuk frasa tiga kata atau lebih. Pertahankan semua keyword sesuai bentuk aslinya.
+5. Kelompokkan keyword ke dalam tiga kategori:
+   - Essential Keywords (10–15 kata): Objek utama, tema sentral, dan istilah paling kompetitif.
+   - Main Keywords (15–20 kata): Unsur visual, teknis, warna, dan elemen pendukung lainnya.
+   - Additional Keywords (sisanya): Kata pendukung, sinonim, metafora visual, atau gaya presentasi.
+6. Setelah pengelompokan, gabungkan semua keyword ke dalam satu baris dengan urutan kategori: essential > main > additional. Gunakan huruf kecil semua, pisahkan dengan koma, dan jaga frasa tetap utuh sesuai aslinya.
+7. Batas jumlah keyword maksimal 50.
+   - Jika total lebih dari 50, hapus keyword paling tidak relevan dimulai dari kategori Additional, lalu dari bagian bawah kategori Main jika masih melebihi.
+   - Jangan hapus Essential. Pastikan semua Essential selalu dipertahankan.
+   - Hasil akhir tepat 50 keyword, Jika jumlah kurang dari 50, tambahkan kembali keyword dari daftar yang dihapus (pilih yang paling relevan terlebih dahulu) sampai genap 50. tapi jangan masukan kata yang mengandung unsur hak cipta.
+8. Setelah selesai, tampilkan:
+   - Proses detail: jelaskan apa yang dihapus, ditambahkan, dan perubahan urutan.
+   - Daftar akhir keyword (digabung jadi satu baris, dipisahkan dengan koma).
+   - Sebutkan jumlah total keyword.
+   - Tandai keyword urutan 1–15 sebagai Essential.
+9.Deskripsi:
+ Buat deskripsi sepanjang ±150 karakter, profesional dan selaras dengan judul serta keyword. Fokus pada isi visual dan konteks penggunaannya.`;
+
+    // Placeholder untuk Adobe Stock, Anda bisa mengedit isinya.
+    const ADOBE_STOCK_INSTRUCTIONS = `Instruksi Adobe Stock:
+1. (EDIT) Tambahkan hingga 3 kata tunggal dari judul jika belum ada di daftar keyword awal, untuk menjaga relevansi dan sinkronisasi. Jangan tambahkan frasa atau gabungan kata pada tahap ini.
+2. (EDIT) Hapus keyword yang tidak relevan dengan judul atau visual khas Adobe, baik karena kurang cocok, jarang dicari, atau tidak menjelaskan isi visual dengan tepat.
+3. (EDIT) Hapus semua keyword yang mengandung unsur berhak cipta (misalnya: nama merek dagang, judul film, nama karakter, software, nama perusahaan, dll).
+4. (EDIT) Jangan ubah, pecah, atau singkat keyword yang sudah ada, termasuk frasa tiga kata atau lebih. Pertahankan semua keyword sesuai bentuk aslinya.
+5. (EDIT) Kelompokkan keyword ke dalam tiga kategori:
+   - Essential Keywords (10–15 kata): Objek utama, tema sentral, dan istilah paling kompetitif.
+   - Main Keywords (15–20 kata): Unsur visual, teknis, warna, dan elemen pendukung lainnya.
+   - Additional Keywords (sisanya): Kata pendukung, sinonim, metafora visual, atau gaya presentasi.
+6. (EDIT) Setelah pengelompokan, gabungkan semua keyword ke dalam satu baris dengan urutan kategori: essential > main > additional. Gunakan huruf kecil semua, pisahkan dengan koma, dan jaga frasa tetap utuh sesuai aslinya.
+7. (EDIT) Batas jumlah keyword maksimal 49.
+8. (EDIT) Setelah selesai, tampilkan:
+   - Proses detail: jelaskan apa yang dihapus, ditambahkan, dan perubahan urutan.
+   - Daftar akhir keyword (digabung jadi satu baris, dipisahkan dengan koma).
+   - Sebutkan jumlah total keyword.
+9. (EDIT) Deskripsi:
+ Buat deskripsi sepanjang ±200 karakter, profesional dan selaras dengan judul serta keyword. Fokus pada isi visual dan konteks penggunaannya.`;
+
+    // --- FUNGSI GENERATE PROMPT (DINAMIS) ---
+    function generatePrompt(){
         let j = document.getElementById('judul').value.trim();
         let k = document.getElementById('keywordAwal').value.trim();
         if (!j || !k) {
             showToast("Judul dan Keyword Awal harus diisi!", 'reset');
             return;
         }
-
-        // Hapus kurung siku yang mungkin sudah ada di input untuk menghindari duplikasi
         if (j.startsWith('[') && j.endsWith(']')) { j = j.substring(1, j.length - 1); }
         if (k.startsWith('[') && k.endsWith(']')) { k = k.substring(1, k.length - 1); }
 
-        // Format hasil dengan kurung siku yang konsisten
-        const hasil = `Judul: [${j}]\n\nKeyword: [${k}]\n\nInstruksi:
-1. Tambahkan hingga 3 kata tunggal dari judul jika belum ada di daftar keyword awal, untuk menjaga relevansi dan sinkronisasi. Jangan tambahkan frasa atau gabungan kata pada tahap ini.
-2. Hapus keyword yang tidak relevan dengan judul atau visual khas iStock, baik karena kurang cocok, jarang dicari, atau tidak menjelaskan isi visual dengan tepat.
-3. Hapus semua keyword yang mengandung unsur berhak cipta (misalnya: nama merek dagang, judul film, nama karakter, software, nama perusahaan, dll).
-4. Jangan ubah, pecah, atau singkat keyword yang sudah ada, termasuk frasa tiga kata atau lebih. Pertahankan semua keyword sesuai bentuk aslinya.
-5. Kelompokkan keyword ke dalam tiga kategori:
-   - Essential Keywords (10–15 kata): Objek utama, tema sentral, dan istilah paling kompetitif.
-   - Main Keywords (15–20 kata): Unsur visual, teknis, warna, dan elemen pendukung lainnya.
-   - Additional Keywords (sisanya): Kata pendukung, sinonim, metafora visual, atau gaya presentasi.
-6. Setelah pengelompokan, gabungkan semua keyword ke dalam satu baris dengan urutan kategori: essential > main > additional. Gunakan huruf kecil semua, pisahkan dengan koma, dan jaga frasa tetap utuh sesuai aslinya.
-7. Batas jumlah keyword maksimal 50.
-   - Jika total lebih dari 50, hapus keyword paling tidak relevan dimulai dari kategori Additional, lalu dari bagian bawah kategori Main jika masih melebihi.
-   - Jangan hapus Essential. Pastikan semua Essential selalu dipertahankan.
-   - Hasil akhir tepat 50 keyword, Jika jumlah kurang dari 50, tambahkan kembali keyword dari daftar yang dihapus (pilih yang paling relevan terlebih dahulu) sampai genap 50. tapi jangan masukan kata yang mengandung unsur hak cipta.
-8. Setelah selesai, tampilkan:
-   - Proses detail: jelaskan apa yang dihapus, ditambahkan, dan perubahan urutan.
-   - Daftar akhir keyword (digabung jadi satu baris, dipisahkan dengan koma).
-   - Sebutkan jumlah total keyword.
-   - Tandai keyword urutan 1–15 sebagai Essential.
-9.Deskripsi:
- Buat deskripsi sepanjang ±150 karakter, profesional dan selaras dengan judul serta keyword. Fokus pada isi visual dan konteks penggunaannya.`;
+        const selectedType = document.querySelector('input[name="prompt-type"]:checked').value;
+        const instructions = selectedType === 'adobe' ? ADOBE_STOCK_INSTRUCTIONS : ISTOCK_INSTRUCTIONS;
+        const platformName = selectedType === 'adobe' ? 'Adobe Stock' : 'iStock';
 
+        const hasil = `Judul: [${j}]\n\nKeyword: [${k}]\n\n${instructions}`;
         document.getElementById('hasilPrompt').value = hasil;
-        showToast("Prompt iStock berhasil dibuat ⚡", 'generate');
+        showToast(`Prompt ${platformName} berhasil dibuat ⚡`, 'generate');
+    }
+
+    // --- FUNGSI GABUNGAN ORGANZE & GENERATE ---
+    function organizeAndGenerate() {
+        organizeKeywords();
+        generatePrompt();
     }
     // ------------------------------------------
 
@@ -770,6 +867,9 @@
         if (id.startsWith('kw')) {
             updateKeywordCounts();
         }
+        if (id === 'judul') {
+            updateKeywordCounts();
+        }
     }
 
     document.addEventListener('keydown', e => {
@@ -815,6 +915,28 @@
         document.body.setAttribute('data-theme', newTheme);
     });
 
+    // --- FUNGSI MINIMIZE/MAXIMIZE PROMPT KEYWORD ISTOCK ---
+    const toggleIstockPromptBtn = document.getElementById('toggle-istock-prompt-btn');
+    const istockPromptContent = document.getElementById('istock-prompt-content');
+    const istockPromptSection = document.getElementById('istock-prompt');
+
+    function initializeIstockPromptState() {
+        // Default state: minimized
+        istockPromptSection.classList.add('minimized');
+        istockPromptContent.style.display = 'none';
+        toggleIstockPromptBtn.title = "Buka Prompt";
+    }
+
+    toggleIstockPromptBtn.addEventListener('click', () => {
+        const isMinimized = istockPromptSection.classList.toggle('minimized');
+        if (isMinimized) {
+            istockPromptContent.style.display = 'none';
+            toggleIstockPromptBtn.title = "Buka Prompt";
+        } else {
+            istockPromptContent.style.display = 'block';
+            toggleIstockPromptBtn.title = "Tutup Prompt";
+        }
+    });
     initializeTheme(); // Panggil fungsi saat script dimuat
   </script>
 </body>
