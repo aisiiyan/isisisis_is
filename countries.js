@@ -1,4 +1,4 @@
-const countries = ["afghanistan","albania","algeria","andorra","angola","antigua and barbuda","argentina","armenia","australia","austria","azerbaijan",
+const countries = ["afghanistan","albania","algeria","andorra","angola","antigua","barbuda","argentina","armenia","australia","austria","azerbaijan",
       "bahamas","bahrain","bangladesh","barbados","belarus","belgium","belize","benin","bhutan","bolivia","bosnia and herzegovina","botswana","brazil","brunei","bulgaria","burkina faso","burundi",
       "cabo verde","cambodia","cameroon","canada","central african republic","chad","chile","china","colombia","comoros","congo","costa rica","croatia","cuba","cyprus","czechia",
       "denmark","djibouti","dominica","dominican republic","ecuador","egypt","el salvador","equatorial guinea","eritrea","estonie","eswatini","ethiopia",
