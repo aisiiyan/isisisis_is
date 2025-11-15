@@ -10,4 +10,3 @@ const countries = ["afghanistan","albania","algeria","andorra","angola","antigua
       "qatar","romania","russia","rwanda","saint kitts and nevis","saint lucia","saint vincent and the grenadines","samoa","san marino","sao tome and principe","saudi arabia","senegal","serbia","seychelles","sierra leone","singapore","slovakia","slovenia","solomon islands","somalia","south africa","spain","sri lanka","sudan","suriname","sweden","switzerland","syria",
       "taiwan","tajikistan","tanzania","thailand","timor-leste","togo","tonga","trinidad and tobago","tunisia","turkey","turkmenistan","tuvalu",
       "uganda","ukraine","united arab emirates","united kingdom","united states","uruguay","uzbekistan","vanuatu","vatican city","venezuela","vietnam","yemen","zambia","zimbabwe","antigua and barbuda","barbardos"];
-
