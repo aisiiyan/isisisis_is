@@ -611,26 +611,11 @@
 
   <div id="toast"></div>
 
+  <script src="countries.js"></script>
+  <script src="excluded_keywords.js"></script>
+  <script src="istock_instructions.js"></script>
+  <script src="adobe_instructions.js"></script>
   <script>
-    // Data Negara (Dipertahankan)
-    const countries = ["afghanistan","albania","algeria","andorra","angola","antigua and barbuda","argentina","armenia","australia","austria","azerbaijan",
-      "bahamas","bahrain","bangladesh","barbados","belarus","belgium","belize","benin","bhutan","bolivia","bosnia and herzegovina","botswana","brazil","brunei","bulgaria","burkina faso","burundi",
-      "cabo verde","cambodia","cameroon","canada","central african republic","chad","chile","china","colombia","comoros","congo","costa rica","croatia","cuba","cyprus","czechia",
-      "denmark","djibouti","dominica","dominican republic","ecuador","egypt","el salvador","equatorial guinea","eritrea","estonie","eswatini","ethiopia",
-      "fiji","finland","france","gabon","gambia","georgia","germany","ghana","greece","grenada","guatemala","guinea","guinea-bissau","guyana",
-      "haiti","honduras","hungary","iceland","india","indonesia","iran","iraq","ireland","israel","italy","jamaica","japan","jordan",
-      "kazakhstan","kenya","kiribati","korea north","korea south","kuwait","kyrgyzstan","laos","latvia","lebanon","lesotho","liberia","libya","liechtenstein","lithuania","luxembourg",
-      "madagascar","malawi","malaysia","maldives","mali","malta","marshall islands","mauritania","mauritius","mexico","micronesia","moldova","monaco","mongolia","montenegro","morocco","mozambique","myanmar",
-      "namibia","nauru","nepal","netherlands","new zealand","nicaragua","niger","nigeria","north macedonia","norway","oman","pakistan","palau","palestine","panama","papua new guinea","paraguay","peru","philippines","poland","portugal",
-      "qatar","romania","russia","rwanda","saint kitts and nevis","saint lucia","saint vincent and the grenadines","samoa","san marino","sao tome and principe","saudi arabia","senegal","serbia","seychelles","sierra leone","singapore","slovakia","slovenia","solomon islands","somalia","south africa","spain","sri lanka","sudan","suriname","sweden","switzerland","syria",
-      "taiwan","tajikistan","tanzania","thailand","timor-leste","togo","tonga","trinidad and tobago","tunisia","turkey","turkmenistan","tuvalu",
-      "uganda","ukraine","united arab emirates","united kingdom","united states","uruguay","uzbekistan","vanuatu","vatican city","venezuela","vietnam","yemen","zambia","zimbabwe"];
-
-    // Daftar Keyword Khusus yang Dikecualikan (Sesuai Permintaan Anda)
-    // Daftar ini TERSEMBUNYI dari tampilan HTML, tapi AKTIF sebagai filter.
-    const excludedCustomKeywords = [
-        "african people","african-american people","africa","america","adult","adults only","arms outstretched","asia","australia","beautician","beautiful people","beautiful woman","black people","boyfriend","brown hair","businesswoman","chinese people","closed","close-up","cool attitude","couple - relationship","cute","cut out","elegance","europe","facial expression","fashion","fashion model","fashionable","females","friendship","front view","girlfriend","glamour","hair","hand raised","headshot","heterosexual couple","jumping","japanese people","looking","looking at camera","lying down","long hair","males","men","natural beauty - people","one person","one woman only","one young woman only","only women","people","people of asia and india","photo","photography","portrait","screaming","shouting","side view","smiling","suit","teenage girls","teenager","thai people","two people","white people","women","young adult","young couple","young men","young women","10 seconds or greater","30 seconds or greater","4k resolution","aerial view","animated video","digital animation","digitally generated image","film - moving image","green screen","handheld shot","hd format","helicopter point of view","high angle view","low angle view","medium shot","moving image","over the shoulder view","part of a series","real time video","selective focus","slow motion","stabilized shot","time lapse","tracking shot","unrecognizable person","wide screen","wide shot"];
-
     window.addEventListener('DOMContentLoaded', () => {
       updateKeywordAwalCount();
       updateKeywordCounts(); // Panggil saat load
@@ -715,55 +700,6 @@
         const judulStatusClass = judul ? 'status-filled' : 'status-empty';
         document.getElementById('judul-status').className = `keyword-status-badge ${judulStatusClass}`;
     }
-
-    // --- TEMPLATE INSTRUKSI ---
-    const ISTOCK_INSTRUCTIONS = `Instruksi:
-1. Tambahkan hingga 3 kata tunggal dari judul jika belum ada di daftar keyword awal, untuk menjaga relevansi dan sinkronisasi. Jangan tambahkan frasa atau gabungan kata pada tahap ini.
-2. Hapus keyword yang tidak relevan dengan judul atau visual khas iStock, baik karena kurang cocok, jarang dicari, atau tidak menjelaskan isi visual dengan tepat.
-3. Hapus semua keyword yang mengandung unsur berhak cipta (misalnya: nama merek dagang, judul film, nama karakter, software, nama perusahaan, dll).
-4. Jangan ubah, pecah, atau singkat keyword yang sudah ada, termasuk frasa tiga kata atau lebih. Pertahankan semua keyword sesuai bentuk aslinya.
-5. Kelompokkan keyword ke dalam tiga kategori:
-   - Essential Keywords (10–15 kata): Objek utama, tema sentral, dan istilah paling kompetitif.
-   - Main Keywords (15–20 kata): Unsur visual, teknis, warna, dan elemen pendukung lainnya.
-   - Additional Keywords (sisanya): Kata pendukung, sinonim, metafora visual, atau gaya presentasi.
-6. Setelah pengelompokan, gabungkan semua keyword ke dalam satu baris dengan urutan kategori: essential > main > additional. Gunakan huruf kecil semua, pisahkan dengan koma, dan jaga frasa tetap utuh sesuai aslinya.
-7. Batas jumlah keyword maksimal 50.
-   - Jika total lebih dari 50, hapus keyword paling tidak relevan dimulai dari kategori Additional, lalu dari bagian bawah kategori Main jika masih melebihi.
-   - Jangan hapus Essential. Pastikan semua Essential selalu dipertahankan.
-   - Hasil akhir tepat 50 keyword, Jika jumlah kurang dari 50, tambahkan kembali keyword dari daftar yang dihapus (pilih yang paling relevan terlebih dahulu) sampai genap 50. tapi jangan masukan kata yang mengandung unsur hak cipta.
-8. Setelah selesai, tampilkan:
-   - Proses detail: jelaskan apa yang dihapus, ditambahkan, dan perubahan urutan.
-   - Daftar akhir keyword (digabung jadi satu baris, dipisahkan dengan koma).
-   - Sebutkan jumlah total keyword.
-   - Tandai keyword urutan 1–15 sebagai Essential.
-9.Deskripsi:
- Buat deskripsi sepanjang ±150 karakter, profesional dan selaras dengan judul serta keyword. Fokus pada isi visual dan konteks penggunaannya.`;
-
-    // Placeholder untuk Adobe Stock, Anda bisa mengedit isinya.
-    const ADOBE_STOCK_INSTRUCTIONS = `Instruksi:
-1. Hapus semua keyword yang terdeteksi duplikat.
-2. Hapus semua keyword yang mengandung unsur berhak cipta (misalnya: nama merek dagang, judul film, nama karakter, software, nama perusahaan, dll).
-3. Hapus keyword yang tidak relevan dengan judul/gambar. Keyword yang masih ada hubungan konteks tetap dipertahankan.
-4. Tambahkan maksimal 3 kata tunggal dari judul jika belum ada di daftar keyword awal.
-5. Urutkan keyword sesuai kategori prioritas berikut (paling relevan di awal, paling umum di akhir):
-   - Produk Utama → objek inti gambar.
-   - Aplikasi Produk → kegunaan atau tujuan gambar.
-   - Mood / Style → suasana atau gaya visual.
-   - Teknik / Media → metode pembuatan atau format file.
-   - Kata Pendukung Umum → kata yang bersifat luas untuk jangkauan trafik.
-6. Prioritaskan 15 keyword pertama untuk:
-   - Relevansi paling tinggi.
-   - Volume pencarian tinggi di stok foto.
-   - Minimal 3 kata penting dari judul ada di urutan 1–10.
-7. Batasi hasil akhir menjadi **tepat 49 keyword**:
-   - Jika jumlah kurang dari 49, tambahkan kembali keyword dari daftar yang dihapus (pilih yang paling relevan terlebih dahulu) sampai genap 49.
-   - Jika jumlah lebih dari 49, buang keyword dari prioritas terbawah sampai tersisa 49.
-8. Setelah selesai, tampilkan:
-   - Daftar keyword yang di salin
-   - Proses detail: jelaskan apa yang dihapus, ditambahkan, dan perubahan urutan.
-   - Daftar akhir keyword (digabung jadi satu baris, dipisahkan dengan koma).
-   - Sebutkan jumlah total keyword.
-   - Tandai keyword urutan 1–15 sebagai Essential.`;
 
     // --- FUNGSI GENERATE PROMPT (DINAMIS) ---
     function generatePrompt(){
