@@ -4,6 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Prompt & Keyword Organizer — Final</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     /* VARIAN DEFAULT (LIGHT MODE) - DITINGGALKAN SEBAGAI REFERENSI, TAPI TIDAK DIPAKAI STARTUP */
     :root{
@@ -94,8 +98,9 @@
     .section-header h2{
       color:var(--text); 
       margin:0;
-      font-weight:600; 
-      font-size:1.2rem; 
+      font-weight:700; 
+      font-size:1.4rem; 
+      font-family: 'Playfair Display', serif;
     }
     
     .btn-header-reset {
@@ -233,6 +238,7 @@
         border-radius: 999px;
         font-weight: 600;
         border: 1px solid var(--border);
+        font-family: 'IBM Plex Mono', monospace;
     }
     .all-keywords-container {
         display: flex;
@@ -259,6 +265,7 @@
         min-width: 30px;
         text-align: center;
         margin-right: 4px; /* Jarak antar status badge */
+        font-family: 'IBM Plex Mono', monospace;
     }
     .keyword-status-badge.status-empty {
         background-color: var(--input);
@@ -429,6 +436,8 @@
 </head>
 <body data-theme="dark">
 
+  <h1 style="text-align: center; font-family: 'Helvetica', sans-serif; font-weight: bold; margin-bottom: 20px; color: var(--text);">AISIIYAN</h1>
+
   <main>
     <section id="actions-and-stats">
          <div class="section-header">
@@ -436,7 +445,7 @@
              <div style="display: flex; align-items: center; gap: 8px;">
                  <button class="btn-delete-field btn-header-reset" onclick="clearField('judul')" title="Hapus Judul" style="padding: 6px 10px;">
                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
-                     Hapus Judul
+                     Hapus Jud
                  </button>
                  <!-- Prompt Type Selector -->
                  <div class="prompt-selector">
@@ -447,7 +456,7 @@
                  </div>
                  <button class="btn-header-reset" onclick="resetAll()">
                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6"/><path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-                     Reset All
+                     Reset
                  </button>
                  <button id="theme-toggle" class="btn-header-reset" title="Ganti Tema">
                      <span class="icon-moon">🌙</span>
@@ -461,11 +470,11 @@
              <!-- Indikator Status Judul -->
              <span id="judul-status" class="keyword-status-badge status-empty">Judul</span>
              <!-- Badge Jumlah Keyword -->
-             <span class="keyword-count-badge">Key 01: <span id="kw1Count" class="badge-purple">0</span></span>
-             <span class="keyword-count-badge">Key 02: <span id="kw2Count" class="badge-purple">0</span></span>
-             <span class="keyword-count-badge">Key 03: <span id="kw3Count" class="badge-purple">0</span></span>
+             <span class="keyword-count-badge">K01: <span id="kw1Count" class="badge-purple">0</span></span>
+             <span class="keyword-count-badge">K02: <span id="kw2Count" class="badge-purple">0</span></span>
+             <span class="keyword-count-badge">K03: <span id="kw3Count" class="badge-purple">0</span></span>
              <span class="keyword-count-badge">All: <span id="allKeywordCount" class="badge-blue">0</span></span>
-             <span class="keyword-count-badge">akhir: <span id="akhirCount" class="badge-green">0</span></span>
+             <span class="keyword-count-badge">F: <span id="akhirCount" class="badge-green">0</span></span>
          </div>
          <div class="divider"></div>
 
@@ -473,7 +482,7 @@
          <div class="paste-controls-grid" style="margin-top: 15px; margin-bottom: 0;">
              <button class="btn-paste-style btn-paste-judul" onclick="pasteTo('judul')">
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
-                 Paste Judul
+                 Judul
              </button>
              <button class="btn-paste-style" onclick="pasteTo('kw1')">
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9"/><path d="M7 3h10a2 2 0 012 2v4a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
@@ -496,7 +505,7 @@
          <div class="paste-controls-grid" style="margin-top: 5px; grid-template-columns: repeat(3, 1fr);">
              <button class="btn-generate-style btn-gen-prompt" onclick="organizeAndGenerate()">
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                 Organize & Generate
+                 Generate
              </button>
              <button class="btn-copy-style" onclick="copyText('hasilPrompt')">
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -701,43 +710,14 @@
         document.getElementById('judul-status').className = `keyword-status-badge ${judulStatusClass}`;
     }
 
-    // --- FUNGSI GENERATE PROMPT (DINAMIS) ---
-    function generatePrompt(){
-        let j = document.getElementById('judul').value.trim();
-        let organizedKeywords = document.getElementById('selectedKeywords').textContent.trim();
-
-        if (!j || !organizedKeywords) {
-            showToast("Judul dan Keyword Awal harus diisi!", 'reset');
-            return;
-        }
-
-        if (j.startsWith('[') && j.endsWith(']')) { j = j.substring(1, j.length - 1); }
-
-        const selectedType = document.querySelector('input[name="prompt-type"]:checked').value;
-        const instructions = selectedType === 'adobe' ? ADOBE_STOCK_INSTRUCTIONS : ISTOCK_INSTRUCTIONS;
-
-        const hasil = `Judul: [${j}]\n\nKeyword: [${organizedKeywords}]\n\n${instructions}`;
-        const platformName = selectedType === 'adobe' ? 'Adobe Stock' : 'iStock';
-        document.getElementById('hasilPrompt').value = hasil;
-        showToast(`Prompt ${platformName} berhasil dibuat ⚡`, 'generate');
-    }
-
-    // --- FUNGSI GABUNGAN ORGANZE & GENERATE ---
-    function organizeAndGenerate() {
-        organizeKeywords();
-        generatePrompt();
-    }
-    // ------------------------------------------
-
-
     function _collectFrom(id){
       return document.getElementById(id).value
         .split(/[\n,]+/)
         .map(s => s.trim().toLowerCase())
         .filter(Boolean);
     }
-
-    function organizeKeywords(){
+    
+    function organizeAndGenerate(){
       const all = ['kw1','kw2','kw3'].flatMap(_collectFrom);
       
       // Gabungkan daftar negara dan daftar keyword custom yang tersembunyi
@@ -762,7 +742,26 @@
       });
       container.appendChild(frag);
       updateSelected(); 
-      showToast(`Berhasil mengorganisir ${unique.length} keyword`, 'generate');
+
+      // --- Logika Generate Prompt dipindahkan ke sini ---
+      let j = document.getElementById('judul').value.trim();
+      // Baca langsung dari #keywordAwal yang sudah pasti terupdate oleh updateSelected()
+      let organizedKeywords = document.getElementById('keywordAwal').value.trim();
+
+      if (!j || !organizedKeywords) {
+          showToast("Judul dan Keyword Awal harus diisi!", 'reset');
+          return;
+      }
+
+      if (j.startsWith('[') && j.endsWith(']')) { j = j.substring(1, j.length - 1); }
+
+      const selectedType = document.querySelector('input[name="prompt-type"]:checked').value;
+      const instructions = selectedType === 'adobe' ? ADOBE_STOCK_INSTRUCTIONS : ISTOCK_INSTRUCTIONS;
+
+      const hasil = `Judul: [${j}]\n\nKeyword: [${organizedKeywords}]\n\n${instructions}`;
+      const platformName = selectedType === 'adobe' ? 'Adobe Stock' : 'iStock';
+      document.getElementById('hasilPrompt').value = hasil;
+      showToast(`Prompt ${platformName} berhasil dibuat ⚡`, 'generate');
     }
 
     function escapeHtml(str){
@@ -823,7 +822,7 @@
     document.addEventListener('keydown', e => {
       if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
         e.preventDefault();
-        organizeKeywords();
+        organizeAndGenerate();
       }
     });
 
