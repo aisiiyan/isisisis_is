@@ -1,4 +1,4 @@
-const ADOBE_STOCK_INSTRUCTIONS = `Instruksi:
+const ADOBE_STOCK_INSTRUCTIONS = `PERINTAH OPTIMASI KEYWORD:
 Optimalkan daftar keyword (kata kunci) yang disediakan menjadi tepat 50 untuk platform microstock (Shutterstock/Adobe Stock), dengan fokus utama pada relevansi dan urutan prioritas awal (1-15).
 
  1. Pembersihan:
@@ -32,3 +32,4 @@ Optimalkan daftar keyword (kata kunci) yang disediakan menjadi tepat 50 untuk pl
    • Daftar Akhir Keyword (digabung jadi satu baris, dipisahkan dengan koma).
    • Sebutkan Jumlah Total Keyword.
    • Tandai keyword urutan 1–15 sebagai Essential (misalnya, berikan tanda bintang atau sebutkan secara terpisah).`;
+
