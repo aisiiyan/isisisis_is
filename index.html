@@ -710,7 +710,11 @@
     function _collectFrom(id){
       return document.getElementById(id).value
         .split(/[\n,]+/)
-        .map(s => s.trim().toLowerCase())
+        .map(s => {
+            // Menghapus kata "Illustrations" di akhir keyword, case-insensitive
+            const cleaned = s.trim().replace(/\s+Illustrations$/i, '');
+            return cleaned.toLowerCase();
+        })
         .filter(Boolean);
     }
     
